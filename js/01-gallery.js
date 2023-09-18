@@ -28,6 +28,12 @@ listEl.addEventListener('click', (event) => {
     <img src="${event.target.dataset.source}">
     </div>
 `)
-    instance.show()
+    instance.show();
+
+    document.addEventListener("keydown", (event) => {
+        if (event.code === "Escape") {
+            instance.close();
+        }
+    })
 });
 console.log(galleryItems);
