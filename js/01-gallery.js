@@ -36,4 +36,4 @@ listEl.addEventListener('click', (event) => {
         }
     })
 });
-console.log(galleryItems);
+
