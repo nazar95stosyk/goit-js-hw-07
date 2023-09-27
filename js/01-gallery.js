@@ -18,22 +18,27 @@ const renderList = (arr,container) => {
 }
 renderList(galleryItems, listEl);
 
-listEl.addEventListener('click', (event) => {
-    event.preventDefault();
-    if (event.currentTarget == event.target) {
+listEl.onclick = (event) => {
+ if (event.target.nodeName !== 'IMG') {
         return;
     }
+    event.preventDefault();
     const instance = basicLightbox.create(`
-    <div class="modal">
-    <img src="${event.target.dataset.source}">
-    </div>
-`)
+		<img width="1400" height="900" src="${event.target.dataset.source}">
+	`, {
+        onShow: () => {
+            document.addEventListener('keydown', closeModal);
+        },
+        onClose: () => {
+            document.removeEventListener('keydown', closeModal);
+        },
+    });
     instance.show();
-
-    document.addEventListener("keydown", (event) => {
-        if (event.code === "Escape") {
+    
+        function closeModal(event) {
+       if (event.code !== 'Escape') {
+           return;
+       } 
             instance.close();
-        }
-    })
-});
-
+    }
+}
